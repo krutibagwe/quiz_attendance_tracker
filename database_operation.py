@@ -59,3 +59,36 @@ class DatabaseOperation:
             # Close the cursor and connection
             cursor.close()
             connection.close()
+
+
+    def validate_student_login(self, student_id, password):
+        connection = None
+        cursor = None
+
+        try:
+            # Connect to the database
+            connection = mysql.connector.connect(**self.db_config)
+
+            # Create a cursor object to execute SQL queries
+            cursor = connection.cursor()
+
+            # Define the SQL query to check if student ID and password match
+            select_query = "SELECT * FROM students WHERE student_id = %s AND password = %s"
+
+            # Execute the query with actual values
+            cursor.execute(select_query, (student_id, password))
+
+            # Fetch the result
+            result = cursor.fetchone()
+
+            return result is not None  # If result is not None, login is successful
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            # Close the cursor and connection
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
