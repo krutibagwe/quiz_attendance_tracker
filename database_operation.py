@@ -34,3 +34,28 @@ class DatabaseOperation:
             # Close the cursor and connection
             cursor.close()
             connection.close()
+
+    def add_teacher(self, teacher_id, teacher_name, password):
+        try:
+            # Connect to the database
+            connection = mysql.connector.connect(**self.db_config)
+
+            # Create a cursor object to execute SQL queries
+            cursor = connection.cursor()
+
+            # Define the SQL query to insert teacher data into the table
+            insert_query = "INSERT INTO teachers (teacher_id, teacher_name, password) VALUES (%s, %s, %s)"
+
+            # Execute the query with actual values
+            cursor.execute(insert_query, (teacher_id, teacher_name, password))
+
+            # Commit the changes to the database
+            connection.commit()
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            # Close the cursor and connection
+            cursor.close()
+            connection.close()
