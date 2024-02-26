@@ -43,6 +43,7 @@ class WelcomeScreen(ctk.CTk):
     def open_admin_page(self):
         # Code to open admin page goes here
         tkmb.showinfo(title="Info",message="Opening Admin Page")
+        
 
     def open_student_page(self):
         # Code to open student page goes here

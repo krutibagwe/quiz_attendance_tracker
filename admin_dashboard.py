@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from welcome_screen import WelcomeScreen  # Assuming the file is named welcome_screen.py
+from welcome_screen import WelcomeScreen # Assuming the file is named welcome_screen.py
 
 class AdminDashboard(ctk.CTk):
     def __init__(self):
@@ -42,7 +42,8 @@ class AdminDashboard(ctk.CTk):
     def logout(self):
         # Code to logout and go back to the Welcome Screen goes here
         self.destroy()  # Close the current window
-        #WelcomeScreen()
+        #welcome_screen = WelcomeScreen()
+        #welcome_screen.mainloop()
 
 if __name__ == "__main__":
     app = AdminDashboard()

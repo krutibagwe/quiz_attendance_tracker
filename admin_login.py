@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import tkinter.messagebox as tkmb 
+from admin_dashboard import AdminDashboard
 
 class AdminLogin(ctk.CTk):
     def __init__(self):
@@ -46,7 +47,8 @@ class AdminLogin(ctk.CTk):
         # Check if admin credentials are correct
         if admin_id == "admin" and password == "12345":
             # Show successful login message using tkmb.showinfo
-            tkmb.showinfo("Login Successful", "You have logged in Successfully")
+            #tkmb.showinfo("Login Successful", "You have logged in Successfully")
+            AdminDashboard()
 
         else:
             tkmb.showerror("Error", "Incorrect ID or password. Please try again.")
