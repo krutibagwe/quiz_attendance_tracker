@@ -47,8 +47,8 @@ class AdminLogin(ctk.CTk):
         # Check if admin credentials are correct
         if admin_id == "admin" and password == "12345":
             # Show successful login message using tkmb.showinfo
-            #tkmb.showinfo("Login Successful", "You have logged in Successfully")
-            AdminDashboard()
+            tkmb.showinfo("Login Successful", "You have logged in Successfully")
+            #AdminDashboard()
 
         else:
             tkmb.showerror("Error", "Incorrect ID or password. Please try again.")
