@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from welcome_screen import WelcomeScreen # Assuming the file is named welcome_screen.py
+#from welcome_screen import WelcomeScreen # Assuming the file is named welcome_screen.py
 
 class AdminDashboard(ctk.CTk):
     def __init__(self):

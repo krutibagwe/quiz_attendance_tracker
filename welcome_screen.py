@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import tkinter.messagebox as tkmb 
+from admin_login import AdminLogin
 
 # Selecting GUI theme - dark, light , system (for system default)
 ctk.set_appearance_mode("light")
@@ -42,7 +43,9 @@ class WelcomeScreen(ctk.CTk):
 
     def open_admin_page(self):
         # Code to open admin page goes here
-        tkmb.showinfo(title="Info",message="Opening Admin Page")
+        #tkmb.showinfo(title="Info",message="Opening Admin Page")
+        admin_login = AdminLogin()
+        admin_login.mainloop()
         
 
     def open_student_page(self):
