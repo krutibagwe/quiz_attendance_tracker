@@ -124,3 +124,36 @@ class DatabaseOperation:
                 cursor.close()
             if connection:
                 connection.close()
+
+
+    def add_question(self, subject, question_text, option_a, option_b, option_c, option_d, correct_option):
+        connection = None
+        cursor = None
+
+        try:
+            # Connect to the database
+            connection = mysql.connector.connect(**self.db_config)
+
+            # Create a cursor object to execute SQL queries
+            cursor = connection.cursor()
+
+            # Define the SQL query to insert a new question
+            insert_query = "INSERT INTO questions (subject, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+
+            # Execute the query with actual values
+            cursor.execute(insert_query, (subject, question_text, option_a, option_b, option_c, option_d, correct_option))
+
+            # Commit the changes to the database
+            connection.commit()
+
+        except mysql.connector.Error as e:
+            # Handle any database errors here
+            print(f"Error: {e}")
+            connection.rollback()
+
+        finally:
+            # Close the cursor and connection
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
