@@ -40,9 +40,7 @@ class AddNewQuestion(ctk.CTk):
         def subject_dropdown_callback(choice):
             self.subject_var.set(choice)
 
-        subject_dropdown = ctk.CTkOptionMenu(self, values=subjects,
-                                            command=subject_dropdown_callback,
-                                            variable=self.subject_var)
+        subject_dropdown = ctk.CTkOptionMenu(self, values=subjects, command=subject_dropdown_callback, variable=self.subject_var)
         
         subject_dropdown.pack(pady=10)
 
