@@ -8,7 +8,6 @@ class AdminDashboard(ctk.CTk):
         super().__init__()
         self.title("Admin Dashboard")
 
-        # Set the size of the window and center it
         window_width = 600
         window_height = 400
         screen_width = self.winfo_screenwidth()
@@ -34,20 +33,17 @@ class AdminDashboard(ctk.CTk):
         logout_button.pack(pady=20)
 
     def open_add_student_window(self):
-        # Code to open the Add Student window goes here
         #print("Opening Add Student Window")
         add_new_student = AddNewStudent()
         add_new_student.mainloop()
 
     def open_add_teacher_window(self):
-        # Code to open the Add Teacher window goes here
         #print("Opening Add Teacher Window")
         add_new_teacher = AddNewTeacher()
         add_new_teacher.mainloop()
 
     def logout(self):
-        # Code to logout and go back to the Welcome Screen goes here
-        self.destroy()  # Close the current window
+        self.destroy()  
         welcome_screen = WelcomeScreen()
         welcome_screen.mainloop()
 

@@ -10,7 +10,6 @@ class AddNewTeacher(ctk.CTk):
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("blue")
 
-        # Set the size of the window and center it
         window_width = 400
         window_height = 450
         screen_width = self.winfo_screenwidth()
@@ -57,16 +56,14 @@ class AddNewTeacher(ctk.CTk):
         teacher_name = self.teacher_name_var.get()
         password = self.password_var.get()
 
-        # Code to store teacher_id, teacher_name, and password in the database goes here
         DatabaseOperation().add_teacher(teacher_id, teacher_name, password)
-        # Optionally, show a message indicating success
         tkmb.showinfo(title="Success", message="Teacher created successfully")
         self.destroy()
 
     def go_back(self):
         from admin_dashboard import AdminDashboard
         admin_dashboard = AdminDashboard()
-        self.destroy()  # Close the StudentLogin window
+        self.destroy()  
         admin_dashboard.mainloop()
 
 if __name__ == "__main__":

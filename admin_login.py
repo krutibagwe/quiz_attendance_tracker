@@ -11,7 +11,6 @@ class AdminLogin(ctk.CTk):
         
         self.title("Admin Login")
 
-        # Set the size of the window and center it
         window_width = 500
         window_height = 400
         screen_width = self.winfo_screenwidth()
@@ -52,9 +51,7 @@ class AdminLogin(ctk.CTk):
         admin_id = self.admin_id_var.get()
         password = self.password_var.get()
 
-        # Check if admin credentials are correct
         if admin_id == "admin" and password == "12345":
-            # Show successful login message using tkmb.showinfo
             #tkmb.showinfo("Login Successful", "You have logged in Successfully")
             self.destroy()
             admin_dashboard = AdminDashboard()
@@ -66,7 +63,7 @@ class AdminLogin(ctk.CTk):
     def go_back(self):
         from welcome_screen import WelcomeScreen
         welcome_screen = WelcomeScreen()
-        self.destroy()  # Close the StudentLogin window
+        self.destroy() 
         welcome_screen.mainloop()
 
 

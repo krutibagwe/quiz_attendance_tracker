@@ -11,7 +11,6 @@ class AddNewQuestion(ctk.CTk):
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("blue")
 
-        # Set the size of the window and center it
         window_width = 600
         window_height = 725
         screen_width = self.winfo_screenwidth()
@@ -43,7 +42,7 @@ class AddNewQuestion(ctk.CTk):
         subject_label.pack()
         subjects = ["Subject 1", "Subject 2", "Subject 3", "Subject 4", "Subject 5"]
 
-        self.subject_var = ctk.StringVar(value=subjects[0])  # Set default value if needed
+        self.subject_var = ctk.StringVar(value=subjects[0])  
 
         def subject_dropdown_callback(choice):
             self.subject_var.set(choice)
@@ -105,17 +104,14 @@ class AddNewQuestion(ctk.CTk):
         option_d = self.option_d_var.get()
         correct_option = self.correct_option_var.get()
 
-        # Code to store the question in the database goes here
         DatabaseOperation().add_question(subject, question_text, option_a, option_b, option_c, option_d, correct_option)
-
-        # Optionally, show a message indicating success
         tkmb.showinfo(title="Success", message="Question added successfully")
         self.destroy()
 
     def go_back(self):
         from student_dashboard import StudentDashboard
         student_dashboard = StudentDashboard()
-        self.destroy()  # Close the StudentLogin window
+        self.destroy() 
         student_dashboard.mainloop()
 
 if __name__ == "__main__":
