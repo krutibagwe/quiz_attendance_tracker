@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from database_operation import DatabaseOperation
 import tkinter.messagebox as tkmb
+from student_dashboard import StudentDashboard
 
 class StudentLogin(ctk.CTk):
     def __init__(self):
@@ -47,7 +48,10 @@ class StudentLogin(ctk.CTk):
         # Check if student ID and password match records in the database
         if DatabaseOperation().validate_student_login(student_id, password):
             # Login successful, you can open the student dashboard or perform other actions
-            tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
+            #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
+            self.destroy()
+            student_dashboard = StudentDashboard()
+            student_dashboard.mainloop()
         else:
             # Login failed, display an error message
             tkmb.showerror(title="Login Failed", message="Incorrect student ID or password. Please try again.")

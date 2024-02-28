@@ -53,12 +53,15 @@ class WelcomeScreen(ctk.CTk):
         
 
     def open_student_page(self):
+        from student_login import StudentLogin
         # Code to open student page goes here
-        tkmb.showinfo(title="Info",message="Opening Student Page")
+        #tkmb.showinfo(title="Info",message="Opening Student Page")
+        self.destroy()
+        student_login = StudentLogin()
+        student_login.mainloop()
 
     def open_teacher_page(self):
         from teacher_login import TeacherLogin
-
         # Code to open teacher page goes here
         #tkmb.showinfo(title="Info",message="Opening Teacher Page")
         self.destroy()
