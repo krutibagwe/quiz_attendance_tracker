@@ -52,6 +52,7 @@ class AdminLogin(ctk.CTk):
         if admin_id == "admin" and password == "12345":
             # Show successful login message using tkmb.showinfo
             #tkmb.showinfo("Login Successful", "You have logged in Successfully")
+            self.destroy()
             admin_dashboard = AdminDashboard()
             admin_dashboard.mainloop()
 

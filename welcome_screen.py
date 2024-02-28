@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import tkinter.messagebox as tkmb 
-from admin_login import AdminLogin
+#from admin_login import AdminLogin
+#from teacher_login import TeacherLogin
 
 # Selecting GUI theme - dark, light , system (for system default)
 ctk.set_appearance_mode("light")
@@ -42,10 +43,13 @@ class WelcomeScreen(ctk.CTk):
         teacher_button.pack(pady=10)
 
     def open_admin_page(self):
+        from admin_login import AdminLogin
         # Code to open admin page goes here
         #tkmb.showinfo(title="Info",message="Opening Admin Page")
+        self.destroy()
         admin_login = AdminLogin()
         admin_login.mainloop()
+        
         
 
     def open_student_page(self):
@@ -53,8 +57,13 @@ class WelcomeScreen(ctk.CTk):
         tkmb.showinfo(title="Info",message="Opening Student Page")
 
     def open_teacher_page(self):
+        from teacher_login import TeacherLogin
+
         # Code to open teacher page goes here
-        tkmb.showinfo(title="Info",message="Opening Teacher Page")
+        #tkmb.showinfo(title="Info",message="Opening Teacher Page")
+        self.destroy()
+        teacher_login = TeacherLogin()
+        teacher_login.mainloop()
 
 if __name__ == "__main__":
     app = WelcomeScreen()
