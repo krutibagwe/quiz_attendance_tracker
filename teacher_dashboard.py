@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from welcome_screen import WelcomeScreen  # Assuming the file is named welcome_screen.py
+from add_new_question import AddNewQuestion
 
 class TeacherDashboard(ctk.CTk):
     def __init__(self):
@@ -36,7 +37,10 @@ class TeacherDashboard(ctk.CTk):
 
     def upload_question(self):
         # Code to upload quiz goes here
-        print("Uploading Question")
+        #print("Uploading Question")
+        add_new_question = AddNewQuestion()
+        add_new_question.mainloop()
+
 
     def view_attendance(self):
         # Code to view attendance goes here
