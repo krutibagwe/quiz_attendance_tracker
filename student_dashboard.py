@@ -1,12 +1,11 @@
 import customtkinter as ctk
-from welcome_screen import WelcomeScreen  # Assuming the file is named welcome_screen.py
+from welcome_screen import WelcomeScreen  
 
 class StudentDashboard(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Student Dashboard")
 
-        # Set the size of the window and center it
         window_width = 600
         window_height = 400
         screen_width = self.winfo_screenwidth()
@@ -38,24 +37,19 @@ class StudentDashboard(ctk.CTk):
         logout_button.pack(pady=20)
 
     def attempt_quiz(self):
-        # Code to open the Attempt Quiz window goes here
         print("Opening Attempt Quiz Window")
 
     def view_attendance(self):
-        # Code to open the View Attendance window goes here
         print("Opening View Attendance Window")
 
     def view_past_scores(self):
-        # Code to open the View Past Scores window goes here
         print("Opening View Past Scores Window")
 
     def view_study_material(self):
-        # Code to open the View Study Material window goes here
         print("Opening View Study Material Window")
 
     def logout(self):
-        # Code to logout and go back to the Welcome Screen goes here
-        self.destroy()  # Close the current window
+        self.destroy()  
         welcome_screen = WelcomeScreen()
         welcome_screen.mainloop()
 

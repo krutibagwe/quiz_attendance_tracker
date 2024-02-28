@@ -3,10 +3,8 @@ import tkinter.messagebox as tkmb
 #from admin_login import AdminLogin
 #from teacher_login import TeacherLogin
 
-# Selecting GUI theme - dark, light , system (for system default)
 ctk.set_appearance_mode("light")
 
-# Selecting color theme - blue, green, dark-blue
 ctk.set_default_color_theme("blue")
 
 class WelcomeScreen(ctk.CTk):
@@ -14,7 +12,6 @@ class WelcomeScreen(ctk.CTk):
         super().__init__()
         self.title("Quiz App")
 
-        # Set the size of the window and center it
         window_width = 600
         window_height = 400
         screen_width = self.winfo_screenwidth()
@@ -44,7 +41,6 @@ class WelcomeScreen(ctk.CTk):
 
     def open_admin_page(self):
         from admin_login import AdminLogin
-        # Code to open admin page goes here
         #tkmb.showinfo(title="Info",message="Opening Admin Page")
         self.destroy()
         admin_login = AdminLogin()
@@ -54,7 +50,6 @@ class WelcomeScreen(ctk.CTk):
 
     def open_student_page(self):
         from student_login import StudentLogin
-        # Code to open student page goes here
         #tkmb.showinfo(title="Info",message="Opening Student Page")
         self.destroy()
         student_login = StudentLogin()
@@ -62,7 +57,6 @@ class WelcomeScreen(ctk.CTk):
 
     def open_teacher_page(self):
         from teacher_login import TeacherLogin
-        # Code to open teacher page goes here
         #tkmb.showinfo(title="Info",message="Opening Teacher Page")
         self.destroy()
         teacher_login = TeacherLogin()

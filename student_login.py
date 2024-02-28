@@ -8,7 +8,6 @@ class StudentLogin(ctk.CTk):
         super().__init__()
         self.title("Student Login")
 
-        # Set the size of the window and center it
         window_width = 500
         window_height = 400
         screen_width = self.winfo_screenwidth()
@@ -38,7 +37,7 @@ class StudentLogin(ctk.CTk):
 
         password_label = ctk.CTkLabel(self, text="Password:")
         password_label.pack()
-        password_entry = ctk.CTkEntry(self, show="*", textvariable=self.password_var)  # Show '*' for password
+        password_entry = ctk.CTkEntry(self, show="*", textvariable=self.password_var)  
         password_entry.pack(pady=10)
 
         # Login button
@@ -49,21 +48,18 @@ class StudentLogin(ctk.CTk):
         student_id = self.student_id_var.get()
         password = self.password_var.get()
 
-        # Check if student ID and password match records in the database
         if DatabaseOperation().validate_student_login(student_id, password):
-            # Login successful, you can open the student dashboard or perform other actions
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
             self.destroy()
             student_dashboard = StudentDashboard()
             student_dashboard.mainloop()
         else:
-            # Login failed, display an error message
             tkmb.showerror(title="Login Failed", message="Incorrect student ID or password. Please try again.")
 
     def go_back(self):
         from welcome_screen import WelcomeScreen
         welcome_screen = WelcomeScreen()
-        self.destroy()  # Close the StudentLogin window
+        self.destroy()  
         welcome_screen.mainloop()
 
 

@@ -11,7 +11,6 @@ class TeacherLogin(ctk.CTk):
         ctk.set_appearance_mode("light")
         ctk.set_default_color_theme("blue")
 
-        # Set the size of the window and center it
         window_width = 500
         window_height = 400
         screen_width = self.winfo_screenwidth()
@@ -41,7 +40,7 @@ class TeacherLogin(ctk.CTk):
 
         password_label = ctk.CTkLabel(self, text="Password:")
         password_label.pack()
-        password_entry = ctk.CTkEntry(self, show="*", textvariable=self.password_var)  # Show '*' for password
+        password_entry = ctk.CTkEntry(self, show="*", textvariable=self.password_var) 
         password_entry.pack(pady=10)
 
         # Login button
@@ -52,9 +51,7 @@ class TeacherLogin(ctk.CTk):
         teacher_id = self.teacher_id_var.get()
         password = self.password_var.get()
 
-        # Check if teacher ID and password match records in the database
         if DatabaseOperation().validate_teacher_login(teacher_id, password):
-            # Login successful, you can open the teacher dashboard or perform other actions
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
             self.destroy()
             teacher_dashboard = TeacherDashboard()
@@ -62,13 +59,12 @@ class TeacherLogin(ctk.CTk):
             
 
         else:
-            # Login failed, display an error message
             tkmb.showerror(title="Login Failed", message="Incorrect teacher ID or password. Please try again.")
 
     def go_back(self):
         from welcome_screen import WelcomeScreen
         welcome_screen = WelcomeScreen()
-        self.destroy()  # Close the StudentLogin window
+        self.destroy()  
         welcome_screen.mainloop()
 
 if __name__ == "__main__":
