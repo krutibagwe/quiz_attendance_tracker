@@ -9,8 +9,8 @@ class StudentLogin(ctk.CTk):
         self.title("Student Login")
 
         # Set the size of the window and center it
-        window_width = 400
-        window_height = 300
+        window_width = 500
+        window_height = 400
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -19,9 +19,13 @@ class StudentLogin(ctk.CTk):
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
+        back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
+        back_button.pack(side="top", anchor="nw", padx=10, pady=10)
+
+
         # Student Login label
         student_login_label = ctk.CTkLabel(self, text="Student Login", font=("Helvetica", 20))
-        student_login_label.pack(pady=20)
+        student_login_label.pack(pady=10)
 
         # Student ID and Password entry
         self.student_id_var = ctk.StringVar()
@@ -55,6 +59,13 @@ class StudentLogin(ctk.CTk):
         else:
             # Login failed, display an error message
             tkmb.showerror(title="Login Failed", message="Incorrect student ID or password. Please try again.")
+
+    def go_back(self):
+        from welcome_screen import WelcomeScreen
+        welcome_screen = WelcomeScreen()
+        self.destroy()  # Close the StudentLogin window
+        welcome_screen.mainloop()
+
 
 if __name__ == "__main__":
     app = StudentLogin()

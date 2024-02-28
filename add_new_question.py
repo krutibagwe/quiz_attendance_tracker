@@ -2,14 +2,18 @@ import customtkinter as ctk
 from database_operation import DatabaseOperation
 import tkinter.messagebox as tkmb
 
+
 class AddNewQuestion(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.title("Add New Question")
 
+        ctk.set_appearance_mode("light")
+        ctk.set_default_color_theme("blue")
+
         # Set the size of the window and center it
         window_width = 600
-        window_height = 500
+        window_height = 725
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -17,6 +21,10 @@ class AddNewQuestion(ctk.CTk):
         y_position = (screen_height - window_height) // 2
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+
+          # Back button
+        back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
+        back_button.pack(side="top", anchor="nw", padx=10, pady=10)
 
         # Add new question label
         add_question_label = ctk.CTkLabel(self, text="Add New Question", font=("Helvetica", 20))
@@ -102,6 +110,12 @@ class AddNewQuestion(ctk.CTk):
 
         # Optionally, show a message indicating success
         tkmb.showinfo(title="Success", message="Question added successfully")
+
+    def go_back(self):
+        from student_dashboard import StudentDashboard
+        student_dashboard = StudentDashboard()
+        self.destroy()  # Close the StudentLogin window
+        student_dashboard.mainloop()
 
 if __name__ == "__main__":
     app = AddNewQuestion()
