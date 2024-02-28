@@ -1,5 +1,7 @@
 import customtkinter as ctk
-from welcome_screen import WelcomeScreen # Assuming the file is named welcome_screen.py
+from welcome_screen import WelcomeScreen 
+from add_new_student import AddNewStudent
+from add_new_teacher import AddNewTeacher
 
 class AdminDashboard(ctk.CTk):
     def __init__(self):
@@ -33,11 +35,15 @@ class AdminDashboard(ctk.CTk):
 
     def open_add_student_window(self):
         # Code to open the Add Student window goes here
-        print("Opening Add Student Window")
+        #print("Opening Add Student Window")
+        add_new_student = AddNewStudent()
+        add_new_student.mainloop()
 
     def open_add_teacher_window(self):
         # Code to open the Add Teacher window goes here
-        print("Opening Add Teacher Window")
+        #print("Opening Add Teacher Window")
+        add_new_teacher = AddNewTeacher()
+        add_new_teacher.mainloop()
 
     def logout(self):
         # Code to logout and go back to the Welcome Screen goes here

@@ -110,6 +110,7 @@ class AddNewQuestion(ctk.CTk):
 
         # Optionally, show a message indicating success
         tkmb.showinfo(title="Success", message="Question added successfully")
+        self.destroy()
 
     def go_back(self):
         from student_dashboard import StudentDashboard

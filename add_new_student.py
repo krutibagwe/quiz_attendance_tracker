@@ -63,6 +63,7 @@ class AddNewStudent(ctk.CTk):
         DatabaseOperation().add_student(student_id, student_name, password)
         # Optionally, show a message indicating success
         tkmb.showinfo(title="Success",message="Student created successfully")
+        self.destroy()
 
     def go_back(self):
         from admin_dashboard import AdminDashboard
