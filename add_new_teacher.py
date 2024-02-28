@@ -7,6 +7,9 @@ class AddNewTeacher(ctk.CTk):
         super().__init__()
         self.title("Add New Teacher")
 
+        ctk.set_appearance_mode("light")
+        ctk.set_default_color_theme("blue")
+
         # Set the size of the window and center it
         window_width = 400
         window_height = 450
@@ -17,6 +20,9 @@ class AddNewTeacher(ctk.CTk):
         y_position = (screen_height - window_height) // 2
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+
+        back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
+        back_button.pack(side="top", anchor="nw", padx=10, pady=10)
 
         # Add new teacher label
         add_teacher_label = ctk.CTkLabel(self, text="Add New Teacher", font=("Helvetica", 20))
@@ -55,6 +61,12 @@ class AddNewTeacher(ctk.CTk):
         DatabaseOperation().add_teacher(teacher_id, teacher_name, password)
         # Optionally, show a message indicating success
         tkmb.showinfo(title="Success", message="Teacher created successfully")
+
+    def go_back(self):
+        from admin_dashboard import AdminDashboard
+        admin_dashboard = AdminDashboard()
+        self.destroy()  # Close the StudentLogin window
+        admin_dashboard.mainloop()
 
 if __name__ == "__main__":
     app = AddNewTeacher()

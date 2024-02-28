@@ -12,8 +12,8 @@ class AdminLogin(ctk.CTk):
         self.title("Admin Login")
 
         # Set the size of the window and center it
-        window_width = 400
-        window_height = 300
+        window_width = 500
+        window_height = 400
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -21,6 +21,10 @@ class AdminLogin(ctk.CTk):
         y_position = (screen_height - window_height) // 2
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+
+        back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
+        back_button.pack(side="top", anchor="nw", padx=10, pady=10)
+
 
         # Admin login label
         admin_login_label = ctk.CTkLabel(self, text="Admin Login", font=("Helvetica", 20))
@@ -58,6 +62,13 @@ class AdminLogin(ctk.CTk):
 
         else:
             tkmb.showerror("Error", "Incorrect ID or password. Please try again.")
+
+    def go_back(self):
+        from welcome_screen import WelcomeScreen
+        welcome_screen = WelcomeScreen()
+        self.destroy()  # Close the StudentLogin window
+        welcome_screen.mainloop()
+
 
 
 if __name__ == "__main__":

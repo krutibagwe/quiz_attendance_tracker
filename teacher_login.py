@@ -8,9 +8,12 @@ class TeacherLogin(ctk.CTk):
         super().__init__()
         self.title("Teacher Login")
 
+        ctk.set_appearance_mode("light")
+        ctk.set_default_color_theme("blue")
+
         # Set the size of the window and center it
-        window_width = 400
-        window_height = 300
+        window_width = 500
+        window_height = 400
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -18,6 +21,10 @@ class TeacherLogin(ctk.CTk):
         y_position = (screen_height - window_height) // 2
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+
+        back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
+        back_button.pack(side="top", anchor="nw", padx=10, pady=10)
+
 
         # Teacher Login label
         teacher_login_label = ctk.CTkLabel(self, text="Teacher Login", font=("Helvetica", 20))
@@ -57,6 +64,12 @@ class TeacherLogin(ctk.CTk):
         else:
             # Login failed, display an error message
             tkmb.showerror(title="Login Failed", message="Incorrect teacher ID or password. Please try again.")
+
+    def go_back(self):
+        from welcome_screen import WelcomeScreen
+        welcome_screen = WelcomeScreen()
+        self.destroy()  # Close the StudentLogin window
+        welcome_screen.mainloop()
 
 if __name__ == "__main__":
     app = TeacherLogin()
