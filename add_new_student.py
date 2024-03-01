@@ -11,7 +11,7 @@ class AddNewStudent(ctk.CTk):
         ctk.set_default_color_theme("blue")
 
         window_width = 400
-        window_height = 450
+        window_height = 650
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
