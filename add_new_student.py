@@ -31,7 +31,9 @@ class AddNewStudent(ctk.CTk):
         # Student ID and Password entry
         self.student_id_var = ctk.StringVar()
         self.student_name_var = ctk.StringVar()
-        self.password_var = ctk.StringVar()
+        self.student_department_var = ctk.StringVar()
+        self.student_year_var = ctk.StringVar()
+        self.student_password_var = ctk.StringVar()
 
         student_id_label = ctk.CTkLabel(self, text="Student ID:")
         student_id_label.pack()
@@ -43,11 +45,21 @@ class AddNewStudent(ctk.CTk):
         student_name_entry = ctk.CTkEntry(self, textvariable=self.student_name_var)
         student_name_entry.pack(pady=10)
 
+        student_department_label = ctk.CTkLabel(self, text="Student Department:")  
+        student_department_label.pack()
+        student_department_entry = ctk.CTkEntry(self, textvariable=self.student_department_var)
+        student_department_entry.pack(pady=10)
 
-        password_label = ctk.CTkLabel(self, text="Password:")
-        password_label.pack()
-        password_entry = ctk.CTkEntry(self, textvariable=self.password_var)
-        password_entry.pack(pady=10)
+        student_year_label = ctk.CTkLabel(self, text="Student Year:")  
+        student_year_label.pack()
+        student_year_entry = ctk.CTkEntry(self, textvariable=self.student_year_var)
+        student_year_entry.pack(pady=10)
+
+
+        student_password_label = ctk.CTkLabel(self, text="Password:")
+        student_password_label.pack()
+        student_password_entry = ctk.CTkEntry(self, textvariable=self.student_password_var)
+        student_password_entry.pack(pady=10)
 
         # Create Student button
         create_student_button = ctk.CTkButton(self, text="Create Student", command=self.create_student)
@@ -56,9 +68,14 @@ class AddNewStudent(ctk.CTk):
     def create_student(self):
         student_id = self.student_id_var.get()
         student_name = self.student_name_var.get()  
-        password = self.password_var.get()
+        student_department = self.student_department_var.get()
+        student_year = self.student_year_var.get()
+        student_password = self.student_password_var.get()
 
-        DatabaseOperation().add_student(student_id, student_name, password)
+        DatabaseOperation().add_student(student_id, student_name, student_department, student_year, student_password)
+
+        print(f"Values: {student_id}, {student_name}, {student_department}, {student_year}, {student_password}")
+
         tkmb.showinfo(title="Success",message="Student created successfully")
         self.destroy()
 

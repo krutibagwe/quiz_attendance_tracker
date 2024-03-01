@@ -10,7 +10,7 @@ class DatabaseOperation:
             'database': 'quizdatabase1'
         }
 
-    def add_student(self, student_id, student_name, password):
+    def add_student(self, student_id, student_name, student_department, student_year, student_password):
         try:
             # Connect to the database
             connection = mysql.connector.connect(**self.db_config)
@@ -19,10 +19,10 @@ class DatabaseOperation:
             cursor = connection.cursor()
 
             # Define the SQL query to insert student data into the table
-            insert_query = "INSERT INTO students (student_id, student_name, password) VALUES (%s, %s, %s)"
+            insert_query = "INSERT INTO students (student_id, student_name, student_department, student_year, student_password) VALUES (%s, %s, %s, %s, %s)"
 
             # Execute the query with actual values
-            cursor.execute(insert_query, (student_id, student_name, password))
+            cursor.execute(insert_query, (student_id, student_name, student_department, student_year, student_password))
 
             # Commit the changes to the database
             connection.commit()
@@ -61,7 +61,7 @@ class DatabaseOperation:
             connection.close()
 
 
-    def validate_student_login(self, student_id, password):
+    def validate_student_login(self, student_id, student_password):
         connection = None
         cursor = None
 
@@ -73,10 +73,10 @@ class DatabaseOperation:
             cursor = connection.cursor()
 
             # Define the SQL query to check if student ID and password match
-            select_query = "SELECT * FROM students WHERE student_id = %s AND password = %s"
+            select_query = "SELECT * FROM students WHERE student_id = %s AND student_ password = %s"
 
             # Execute the query with actual values
-            cursor.execute(select_query, (student_id, password))
+            cursor.execute(select_query, (student_id, student_password))
 
             # Fetch the result
             result = cursor.fetchone()
