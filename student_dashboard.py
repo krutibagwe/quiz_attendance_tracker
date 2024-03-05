@@ -1,5 +1,6 @@
 import customtkinter as ctk
 from welcome_screen import WelcomeScreen  
+from attempt_quiz_subject import AttemptQuizSubject
 
 class StudentDashboard(ctk.CTk):
     def __init__(self):
@@ -37,6 +38,8 @@ class StudentDashboard(ctk.CTk):
         logout_button.pack(pady=20)
 
     def attempt_quiz(self):
+        attempt_quiz_subject = AttemptQuizSubject()
+        attempt_quiz_subject.mainloop()
         print("Opening Attempt Quiz Window")
 
     def view_attendance(self):
