@@ -52,7 +52,7 @@ class StudentDashboard(ctk.CTk):
         print("Opening View Study Material Window")
 
     def logout(self):
-        self.destroy()  
+        self.withdraw()  
         welcome_screen = WelcomeScreen()
         welcome_screen.mainloop()
 

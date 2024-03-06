@@ -50,7 +50,7 @@ class StudentLogin(ctk.CTk):
 
         if DatabaseOperation().validate_student_login(student_id, password):
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
-            self.destroy()
+            self.withdraw()
             student_dashboard = StudentDashboard()
             student_dashboard.mainloop()
         else:
@@ -59,7 +59,7 @@ class StudentLogin(ctk.CTk):
     def go_back(self):
         from welcome_screen import WelcomeScreen
         welcome_screen = WelcomeScreen()
-        self.destroy()  
+        self.withdraw()  
         welcome_screen.mainloop()
 
 
