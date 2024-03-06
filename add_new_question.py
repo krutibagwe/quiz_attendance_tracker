@@ -106,12 +106,12 @@ class AddNewQuestion(ctk.CTk):
 
         DatabaseOperation().add_question(subject, question_text, option_a, option_b, option_c, option_d, correct_option)
         tkmb.showinfo(title="Success", message="Question added successfully")
-        self.destroy()
+        self.withdraw()
 
     def go_back(self):
         from student_dashboard import StudentDashboard
         student_dashboard = StudentDashboard()
-        self.destroy() 
+        self.withdraw() 
         student_dashboard.mainloop()
 
 if __name__ == "__main__":

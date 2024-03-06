@@ -77,12 +77,12 @@ class AddNewStudent(ctk.CTk):
         print(f"Values: {student_id}, {student_name}, {student_department}, {student_year}, {student_password}")
 
         tkmb.showinfo(title="Success",message="Student created successfully")
-        self.destroy()
+        self.withdraw()
 
     def go_back(self):
         from admin_dashboard import AdminDashboard
         admin_dashboard = AdminDashboard()
-        self.destroy()  
+        self.withdraw()  
         admin_dashboard.mainloop()
     
 
