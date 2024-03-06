@@ -58,7 +58,7 @@ class AttemptQuizSubject(ctk.CTk):
 
     def go_back(self):
         from student_dashboard import StudentDashboard
-        self.destroy()
+        self.withdraw()
         student_dashboard = StudentDashboard()
         student_dashboard.mainloop()
 

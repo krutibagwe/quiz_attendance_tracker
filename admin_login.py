@@ -53,7 +53,7 @@ class AdminLogin(ctk.CTk):
 
         if admin_id == "admin" and password == "12345":
             #tkmb.showinfo("Login Successful", "You have logged in Successfully")
-            self.destroy()
+            self.withdraw()
             admin_dashboard = AdminDashboard()
             admin_dashboard.mainloop()
 
@@ -63,7 +63,7 @@ class AdminLogin(ctk.CTk):
     def go_back(self):
         from welcome_screen import WelcomeScreen
         welcome_screen = WelcomeScreen()
-        self.destroy() 
+        self.withdraw() 
         welcome_screen.mainloop()
 
 
