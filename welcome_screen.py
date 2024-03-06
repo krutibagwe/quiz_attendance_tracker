@@ -42,7 +42,7 @@ class WelcomeScreen(ctk.CTk):
     def open_admin_page(self):
         from admin_login import AdminLogin
         #tkmb.showinfo(title="Info",message="Opening Admin Page")
-        self.destroy()
+        self.withdraw()
         admin_login = AdminLogin()
         admin_login.mainloop()
         
@@ -51,14 +51,14 @@ class WelcomeScreen(ctk.CTk):
     def open_student_page(self):
         from student_login import StudentLogin
         #tkmb.showinfo(title="Info",message="Opening Student Page")
-        self.destroy()
+        self.withdraw()
         student_login = StudentLogin()
         student_login.mainloop()
 
     def open_teacher_page(self):
         from teacher_login import TeacherLogin
         #tkmb.showinfo(title="Info",message="Opening Teacher Page")
-        self.destroy()
+        self.withdraw()
         teacher_login = TeacherLogin()
         teacher_login.mainloop()
 
