@@ -51,6 +51,8 @@ class AdminLogin(ctk.CTk):
         admin_id = self.admin_id_var.get()
         password = self.password_var.get()
 
+        print(f"admin login {admin_id} password {password}")
+
         if admin_id == "admin" and password == "12345":
             #tkmb.showinfo("Login Successful", "You have logged in Successfully")
             self.withdraw()
