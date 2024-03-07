@@ -43,7 +43,7 @@ class AdminDashboard(ctk.CTk):
         add_new_teacher.mainloop()
 
     def logout(self):
-        self.withdraw()  
+        self.destroy()  
         welcome_screen = WelcomeScreen()
         welcome_screen.mainloop()
 
