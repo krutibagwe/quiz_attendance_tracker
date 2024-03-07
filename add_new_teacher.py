@@ -58,12 +58,12 @@ class AddNewTeacher(ctk.CTk):
 
         DatabaseOperation().add_teacher(teacher_id, teacher_name, password)
         tkmb.showinfo(title="Success", message="Teacher created successfully")
-        self.withdraw()
+        self.destroy()
 
     def go_back(self):
         from admin_dashboard import AdminDashboard
         admin_dashboard = AdminDashboard()
-        self.withdraw()  
+        self.destroy()  
         admin_dashboard.mainloop()
 
 if __name__ == "__main__":
