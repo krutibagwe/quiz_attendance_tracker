@@ -47,7 +47,7 @@ class TeacherDashboard(ctk.CTk):
         print("Viewing Score")
 
     def logout(self):
-        self.withdraw()  
+        self.destroy()  
         welcome_screen = WelcomeScreen()
         welcome_screen.mainloop()
 
