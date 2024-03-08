@@ -73,7 +73,7 @@ class DatabaseOperation:
             cursor = connection.cursor()
 
             # Define the SQL query to check if student ID and password match
-            select_query = "SELECT * FROM students WHERE student_id = %s AND student_ password = %s"
+            select_query = "SELECT * FROM students WHERE student_id = %s AND student_password = %s"
 
             # Execute the query with actual values
             cursor.execute(select_query, (student_id, student_password))
@@ -157,3 +157,21 @@ class DatabaseOperation:
                 cursor.close()
             if connection:
                 connection.close()
+
+    def get_quiz_questions(self, subject, num_questions=10):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            query = "SELECT question_text, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE subject = %s LIMIT %s"
+            cursor.execute(query, (subject, num_questions))
+            questions = cursor.fetchall()
+
+            return questions
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            cursor.close()
+            connection.close()
