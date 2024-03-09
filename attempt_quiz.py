@@ -143,8 +143,8 @@ class QuizWindow(ctk.CTk):
         self.withdraw()
 
         # Open the student dashboard window
-        student_dashboard = StudentDashboard()
-        student_dashboard.mainloop()
+       # student_dashboard = StudentDashboard()
+       # student_dashboard.mainloop()
 
     def center_window(self):
         # Get the screen width and height
