@@ -1,3 +1,4 @@
+'''
 import mysql.connector
 
 class DatabaseOperation:
@@ -175,3 +176,169 @@ class DatabaseOperation:
         finally:
             cursor.close()
             connection.close()
+
+'''
+
+import mysql.connector
+
+class DatabaseOperation:
+    def __init__(self):
+        self.db_config = {
+            'host': 'localhost',
+            'user': 'root',
+            'password': 'kRuti05!@21',
+            'database': 'quizdatabase1'
+        }
+
+    def add_student(self, student_id, student_name, student_department, student_year, student_password):
+         try:
+             connection = mysql.connector.connect(**self.db_config)
+   
+             cursor = connection.cursor()
+
+             if not student_id:
+                 raise ValueError("Student ID cannot be empty")
+
+             insert_query = "INSERT INTO students (student_id, student_name, student_department, student_year, student_password) VALUES (%s, %s, %s, %s, %s)"
+
+             cursor.execute(insert_query, (student_id, student_name, student_department, student_year, student_password))
+
+             connection.commit()
+
+             print("Student added successfully")
+
+         except mysql.connector.Error as e:
+            if e.errno == 1062:       
+                print("Error: Duplicate student ID. Please enter a unique student ID.") 
+        
+            
+            else:
+                 print(f"Error: {e}")
+           
+
+         except ValueError as ve:
+             print(f"Error: {ve}")
+        
+
+         finally:
+          cursor.close()
+          connection.close()
+
+
+    def add_teacher(self, teacher_id, teacher_name, password):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+
+            cursor = connection.cursor()
+
+            insert_query = "INSERT INTO teachers (teacher_id, teacher_name, password) VALUES (%s, %s, %s)"
+
+            cursor.execute(insert_query, (teacher_id, teacher_name, password))
+
+            connection.commit()
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            cursor.close()
+            connection.close()
+
+
+    def validate_student_login(self, student_id, student_password):
+        connection = None
+        cursor = None
+
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+
+            cursor = connection.cursor()
+
+            select_query = "SELECT * FROM students WHERE student_id = %s AND student_password = %s"
+
+            cursor.execute(select_query, (student_id, student_password))
+
+            result = cursor.fetchone()
+
+            return result is not None  
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+                
+    def validate_teacher_login(self, teacher_id, password):
+        connection = None
+        cursor = None
+
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+
+            cursor = connection.cursor()
+
+            select_query = "SELECT * FROM teachers WHERE teacher_id = %s AND password = %s"
+
+            cursor.execute(select_query, (teacher_id, password))
+
+            result = cursor.fetchone()
+
+            return result is not None  
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+
+    def add_question(self, subject, question_text, option_a, option_b, option_c, option_d, correct_option):
+        connection = None
+        cursor = None
+
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+
+            cursor = connection.cursor()
+
+            insert_query = "INSERT INTO questions (subject, question_text, option_a, option_b, option_c, option_d, correct_option) VALUES (%s, %s, %s, %s, %s, %s, %s)"
+
+            cursor.execute(insert_query, (subject, question_text, option_a, option_b, option_c, option_d, correct_option))
+
+            connection.commit()
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+            connection.rollback()
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+    def get_quiz_questions(self, subject, num_questions=10):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            query = "SELECT question_text, option_a, option_b, option_c, option_d, correct_option FROM questions WHERE subject = %s LIMIT %s"
+            cursor.execute(query, (subject, num_questions))
+            questions = cursor.fetchall()
+
+            return questions
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            cursor.close()
+            connection.close()
+
+
