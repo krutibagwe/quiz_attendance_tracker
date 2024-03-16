@@ -1,3 +1,4 @@
+'''
 import customtkinter as ctk
 from database_operation import DatabaseOperation
 import tkinter.messagebox as tkmb
@@ -96,8 +97,8 @@ from database_operation import DatabaseOperation
 import tkinter.messagebox as tkmb
 
 class AddNewStudent(ctk.CTk):
-    def _init_(self):
-        super()._init_()
+    def __init__(self):
+        super().__init__()
         self.title("Add New Student")
 
         ctk.set_appearance_mode("light")
@@ -113,11 +114,12 @@ class AddNewStudent(ctk.CTk):
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
-        # Add new student label
+        back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
+        back_button.pack(side="top", anchor="nw", padx=10, pady=10)
+
         add_student_label = ctk.CTkLabel(self, text="Add New Student", font=("Helvetica", 20))
         add_student_label.pack(pady=20)
 
-        # Student ID and Password entry
         student_id_label = ctk.CTkLabel(self, text="Student ID:")
         student_id_label.pack()
         self.student_id_entry = ctk.CTkEntry(self)
@@ -143,7 +145,6 @@ class AddNewStudent(ctk.CTk):
         self.student_password_entry = ctk.CTkEntry(self)
         self.student_password_entry.pack(pady=10)
 
-        # Create Student button
         create_student_button = ctk.CTkButton(self, text="Create Student", command=self.create_student)
         create_student_button.pack(pady=20)
 
@@ -169,4 +170,4 @@ class AddNewStudent(ctk.CTk):
 
 if __name__ == "__main__":
     app = AddNewStudent()
-    app.mainloop() '''
+    app.mainloop()

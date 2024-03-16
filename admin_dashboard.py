@@ -92,6 +92,7 @@ class AdminDashboard(ctk.CTk):
         add_new_student.mainloop()
 
     def open_add_teacher_window(self):
+        self.withdraw()
         #print("Opening Add Teacher Window")
         add_new_teacher = AddNewTeacher()
         add_new_teacher.mainloop()
