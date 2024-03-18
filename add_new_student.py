@@ -161,6 +161,9 @@ class AddNewStudent(ctk.CTk):
 
         tkmb.showinfo(title="Success", message="Student created successfully")
         self.destroy()
+        from admin_dashboard import AdminDashboard
+        admin_dashboard = AdminDashboard()
+        admin_dashboard.mainloop()
 
     def go_back(self):
         from admin_dashboard import AdminDashboard
