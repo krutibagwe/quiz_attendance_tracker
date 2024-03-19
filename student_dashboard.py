@@ -114,8 +114,8 @@ class StudentDashboard(ctk.CTk):
         view_past_scores_button = ctk.CTkButton(self, text="View Past Scores", command=self.view_past_scores)
         view_past_scores_button.pack(pady=10)
 
-        view_study_material_button = ctk.CTkButton(self, text="View Study Material", command=self.view_study_material)
-        view_study_material_button.pack(pady=10)
+        #view_study_material_button = ctk.CTkButton(self, text="View Study Material", command=self.view_study_material)
+        #view_study_material_button.pack(pady=10)
 
         logout_button = ctk.CTkButton(self, text="Log Out", command=self.logout)
         logout_button.pack(pady=20)
@@ -132,8 +132,8 @@ class StudentDashboard(ctk.CTk):
     def view_past_scores(self):
         print("Opening View Past Scores Window")
 
-    def view_study_material(self):
-        print("Opening View Study Material Window")
+    #def view_study_material(self):
+     #   print("Opening View Study Material Window")
 
     def logout(self):
         self.withdraw()  
