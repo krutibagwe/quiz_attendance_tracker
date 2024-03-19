@@ -27,30 +27,30 @@ class StudentLogin(ctk.CTk):
         student_login_label.pack(pady=10)
 
         # Student ID and Password entry
-        self.student_id_var = ctk.StringVar()
-        self.password_var = ctk.StringVar()
+        #self.student_id_var = ctk.StringVar()
+        #self.password_var = ctk.StringVar()
 
         student_id_label = ctk.CTkLabel(self, text="Student ID:")
         student_id_label.pack()
-        student_id_entry = ctk.CTkEntry(self, textvariable=self.student_id_var)
-        student_id_entry.pack(pady=10)
+        self.student_id_entry = ctk.CTkEntry(self)
+        self.student_id_entry.pack(pady=10)
 
         password_label = ctk.CTkLabel(self, text="Password:")
         password_label.pack()
-        password_entry = ctk.CTkEntry(self, show="*", textvariable=self.password_var)  
-        password_entry.pack(pady=10)
+        self.password_entry = ctk.CTkEntry(self, show="*")  
+        self.password_entry.pack(pady=10)
 
         # Login button
         login_button = ctk.CTkButton(self, text="Login", command=self.login)
         login_button.pack(pady=20)
 
     def login(self):
-        student_id = self.student_id_var.get()
-        password = self.password_var.get()
+        student_id = self.student_id_entry.get()
+        password = self.password_entry.get()
 
         if DatabaseOperation().validate_student_login(student_id, password):
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
-            self.destroy()
+            self.withdraw()
             student_dashboard = StudentDashboard()
             student_dashboard.mainloop()
         else:

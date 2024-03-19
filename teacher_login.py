@@ -30,26 +30,26 @@ class TeacherLogin(ctk.CTk):
         teacher_login_label.pack(pady=20)
 
         # Teacher ID and Password entry
-        self.teacher_id_var = ctk.StringVar()
-        self.password_var = ctk.StringVar()
+        #self.teacher_id_var = ctk.StringVar()
+        #self.password_var = ctk.StringVar()
 
         teacher_id_label = ctk.CTkLabel(self, text="Teacher ID:")
         teacher_id_label.pack()
-        teacher_id_entry = ctk.CTkEntry(self, textvariable=self.teacher_id_var)
-        teacher_id_entry.pack(pady=10)
+        self.teacher_id_entry = ctk.CTkEntry(self)
+        self.teacher_id_entry.pack(pady=10)
 
         password_label = ctk.CTkLabel(self, text="Password:")
         password_label.pack()
-        password_entry = ctk.CTkEntry(self, show="*", textvariable=self.password_var) 
-        password_entry.pack(pady=10)
+        self.password_entry = ctk.CTkEntry(self, show="*") 
+        self.password_entry.pack(pady=10)
 
         # Login button
         login_button = ctk.CTkButton(self, text="Login", command=self.login)
         login_button.pack(pady=20)
 
     def login(self):
-        teacher_id = self.teacher_id_var.get()
-        password = self.password_var.get()
+        teacher_id = self.teacher_id_entry.get()
+        password = self.password_entry.get()
 
         if DatabaseOperation().validate_teacher_login(teacher_id, password):
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
