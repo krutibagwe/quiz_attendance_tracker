@@ -341,4 +341,34 @@ class DatabaseOperation:
             cursor.close()
             connection.close()
 
+    def add_score(self, student_id, subject, score):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+    
+            insert_query = "INSERT INTO scores (student_id, subject, score) VALUES (%s, %s, %s)"
+            cursor.execute(insert_query, (student_id, subject, score))
+        
+            # Debug prints
+            print(f"Student ID: {student_id}")
+            print(f"Subject: {subject}")
+            print(f"Score: {score}")
+            print("Insertion query executed")
+
+            connection.commit()
+            print("Score added successfully")
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+        
+            connection.rollback()
+
+        finally:
+            if cursor:
+                cursor.close()
+        
+            
+            
+
+
 

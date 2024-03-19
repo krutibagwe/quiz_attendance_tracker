@@ -51,7 +51,7 @@ class StudentLogin(ctk.CTk):
         if DatabaseOperation().validate_student_login(student_id, password):
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
             self.withdraw()
-            student_dashboard = StudentDashboard()
+            student_dashboard = StudentDashboard(student_id)
             student_dashboard.mainloop()
         else:
             tkmb.showerror(title="Login Failed", message="Incorrect student ID or password. Please try again.")
