@@ -194,7 +194,7 @@ def obtain_student_id():
     login_screen.mainloop()
 
     # After the main loop finishes (e.g., after successful login), retrieve the student ID
-    student_id = login_screen.student_id_var.get()
+    student_id = login_screen.student_id_entry.get()
     print("Student ID :" , student_id)
 
     # Return the obtained student ID
