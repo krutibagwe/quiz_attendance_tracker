@@ -108,11 +108,11 @@ class StudentDashboard(ctk.CTk):
         attempt_quiz_button = ctk.CTkButton(self, text="Attempt Quiz", command=self.attempt_quiz)
         attempt_quiz_button.pack(pady=10)
 
-        view_attendance_button = ctk.CTkButton(self, text="View Attendance", command=self.view_attendance)
+        view_attendance_button = ctk.CTkButton(self, text="View Attendance & Past Scores", command=self.view_attendance)
         view_attendance_button.pack(pady=10)
 
-        view_past_scores_button = ctk.CTkButton(self, text="View Past Scores", command=self.view_past_scores)
-        view_past_scores_button.pack(pady=10)
+        view_progress_button = ctk.CTkButton(self, text="View Progress", command=self.view_progress)
+        view_progress_button.pack(pady=10)
 
         #view_study_material_button = ctk.CTkButton(self, text="View Study Material", command=self.view_study_material)
         #view_study_material_button.pack(pady=10)
@@ -129,8 +129,8 @@ class StudentDashboard(ctk.CTk):
     def view_attendance(self):
         print("Opening View Attendance Window")
 
-    def view_past_scores(self):
-        print("Opening View Past Scores Window")
+    def view_progress(self):
+        print("Opening View Progress Window")
 
     #def view_study_material(self):
      #   print("Opening View Study Material Window")
