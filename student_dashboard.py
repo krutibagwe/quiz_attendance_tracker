@@ -1,68 +1,3 @@
-'''
-import customtkinter as ctk
-from welcome_screen import WelcomeScreen  
-from attempt_quiz import AttemptQuizSubject
-
-class StudentDashboard(ctk.CTk):
-    def __init__(self):
-        super().__init__()
-        self.title("Student Dashboard")
-
-        window_width = 600
-        window_height = 400
-        screen_width = self.winfo_screenwidth()
-        screen_height = self.winfo_screenheight()
-
-        x_position = (screen_width - window_width) // 2
-        y_position = (screen_height - window_height) // 2
-
-        self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
-
-        # Student dashboard label
-        student_dashboard_label = ctk.CTkLabel(self, text="Student Dashboard", font=("Helvetica", 20))
-        student_dashboard_label.pack(pady=20)
-
-        # Buttons
-        attempt_quiz_button = ctk.CTkButton(self, text="Attempt Quiz", command=self.attempt_quiz)
-        attempt_quiz_button.pack(pady=10)
-
-        view_attendance_button = ctk.CTkButton(self, text="View Attendance", command=self.view_attendance)
-        view_attendance_button.pack(pady=10)
-
-        view_past_scores_button = ctk.CTkButton(self, text="View Past Scores", command=self.view_past_scores)
-        view_past_scores_button.pack(pady=10)
-
-        #view_study_material_button = ctk.CTkButton(self, text="View Study Material", command=self.view_study_material)
-        #view_study_material_button.pack(pady=10)
-
-        logout_button = ctk.CTkButton(self, text="Log Out", command=self.logout)
-        logout_button.pack(pady=20)
-
-    def attempt_quiz(self):
-        self.withdraw()
-        attempt_quiz = AttemptQuizSubject()
-        attempt_quiz.mainloop()
-        print("Opening Attempt Quiz Window")
-
-    def view_attendance(self):
-        print("Opening View Attendance Window")
-
-    def view_past_scores(self):
-        print("Opening View Past Scores Window")
-
-    #def view_study_material(self):
-       # print("Opening View Study Material Window")
-
-    def logout(self):
-        self.withdraw()  
-        welcome_screen = WelcomeScreen()
-        welcome_screen.mainloop()
-
-if __name__ == "__main__":
-    app = StudentDashboard()
-    app.mainloop()
-'''
-
 import customtkinter as ctk
 from welcome_screen import WelcomeScreen  
 from attempt_quiz import AttemptQuizSubject
@@ -74,7 +9,6 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 import tkinter.constants as tk_constants
 from tkinter import ttk
 import tkinter as tk
-
 
 # Define the obtain_student_id() function outside the StudentDashboard class
 def obtain_student_id():
@@ -113,14 +47,15 @@ class StudentDashboard(ctk.CTk):
         student_dashboard_label = ctk.CTkLabel(self, text="Student Dashboard", font=("Helvetica", 20))
         student_dashboard_label.pack(pady=20)
 
+
         # Buttons
         attempt_quiz_button = ctk.CTkButton(self, text="Attempt Quiz", command=self.attempt_quiz)
         attempt_quiz_button.pack(pady=10)
 
-        view_attendance_button = ctk.CTkButton(self, text="View Attendance & Past Scores", command=self.view_details)
+        view_attendance_button = ctk.CTkButton(self, text="View Attendance", command=self.view_details)
         view_attendance_button.pack(pady=10)
 
-        view_progress_button = ctk.CTkButton(self, text="View Progress", command=self.view_details)
+        view_progress_button = ctk.CTkButton(self, text="View Progress ", command=self.view_progress)
         view_progress_button.pack(pady=10)
 
         #view_study_material_button = ctk.CTkButton(self, text="View Study Material", command=self.view_study_material)
@@ -134,9 +69,6 @@ class StudentDashboard(ctk.CTk):
         attempt_quiz = AttemptQuizSubject(self.student_id)
         attempt_quiz.mainloop()
         print("Opening Attempt Quiz Window")
-
-    def view_attendance(self):
-        print("Opening View Attendance Window")
 
     def view_details(self):
         db_operation = DatabaseOperation()
@@ -204,8 +136,56 @@ class StudentDashboard(ctk.CTk):
 
         details_window.mainloop()
 
-    #def view_study_material(self):
-     #   print("Opening View Study Material Window")
+    def view_progress(self):
+        db_operation = DatabaseOperation()
+        subjects = db_operation.get_student_subjects(self.student_id)
+
+        # Create a tkinter window
+        root = ctk.CTk()
+        root.title("Progress for All Subjects")
+
+        
+
+        # Define grid layout parameters
+        rows = 2
+        cols = 3
+
+        for i, subject in enumerate(subjects):
+            quiz_data = db_operation.get_student_quiz_data(self.student_id, subject)
+            
+            if quiz_data:
+                quiz_dates = [data[0] for data in quiz_data]
+                scores = [data[1] for data in quiz_data]
+                
+                fig, ax = plt.subplots(figsize=(5, 5))
+                ax.plot(quiz_dates, scores, marker='o')
+                ax.set_title(f'Progress in {subject}')
+                ax.set_xlabel('Date of Quiz')
+                ax.set_ylabel('Marks Obtained')
+                ax.grid(True)
+                #ax.tick_params(axis='x', rotation=45)  # Rotate x-axis labels for better visibility
+
+                # Embed the plot into a tkinter window
+                canvas = tkagg.FigureCanvasTkAgg(fig, master=root)
+                canvas.draw()
+                
+                # Calculate grid coordinates for the current subplot
+                row = i // cols
+                col = i % cols
+                
+                # Pack the canvas into the appropriate grid cell
+                canvas.get_tk_widget().grid(row=row, column=col, padx=10, pady=10)
+                
+            else:
+                print(f"No quiz data found for {subject}")
+
+        # Add a button to close the window
+        close_button = ctk.CTkButton(root, text="Close", command=root.withdraw)
+        close_button.grid(row=rows, column=0, columnspan=cols, pady=10)
+
+        root.mainloop()
+
+      
 
     def logout(self):
         self.withdraw()  
