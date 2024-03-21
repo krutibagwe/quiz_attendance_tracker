@@ -53,7 +53,7 @@ class TeacherLogin(ctk.CTk):
 
         if DatabaseOperation().validate_teacher_login(teacher_id, password):
             #tkmb.showinfo(title="Login Successful", message="You have logged in successfully")
-            self.destroy()
+            self.withdraw()
             teacher_dashboard = TeacherDashboard()
             teacher_dashboard.mainloop()
             
