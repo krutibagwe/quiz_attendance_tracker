@@ -81,6 +81,9 @@ class TeacherDashboard(ctk.CTk):
             # Insert data into the treeview
             for idx, record in enumerate(attendance_records, start=1):
                 tree.insert("", "end", values=(record[0], record[1], record[2], record[3], record[4]))
+            
+            close_button = ctk.CTkButton(attendance_window, text="Close", command=attendance_window.withdraw)
+            close_button.pack(pady=10)
 
             attendance_window.mainloop()
         else:
