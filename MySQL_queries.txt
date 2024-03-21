@@ -1,10 +1,7 @@
--- Create the database
 CREATE DATABASE IF NOT EXISTS quizdatabase1;
 
--- Switch to the created database
 USE quizdatabase1;
 
--- Create a table for students
 CREATE TABLE IF NOT EXISTS students (
     student_id VARCHAR(50) PRIMARY KEY,
     student_name VARCHAR(100) NOT NULL,
@@ -13,7 +10,6 @@ CREATE TABLE IF NOT EXISTS students (
     student_password VARCHAR(50) NOT NULL
 );
 
--- Create a table for teachers
 CREATE TABLE IF NOT EXISTS teachers (
     teacher_id VARCHAR(50) PRIMARY KEY,
     teacher_name VARCHAR(100) NOT NULL,
@@ -31,26 +27,26 @@ CREATE TABLE IF NOT EXISTS questions (
     correct_option VARCHAR(1) NOT NULL
 );
 
--- Create a table for student marks
-CREATE TABLE IF NOT EXISTS student_marks (
-    student_id VARCHAR(50) PRIMARY KEY,
-    marks INT NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES students(student_id)
+CREATE TABLE scores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) NOT NULL,
+    subject VARCHAR(50) NOT NULL,
+    score INT NOT NULL,
+    CONSTRAINT fk_student_id FOREIGN KEY (student_id) REFERENCES students(student_id)
 );
 
--- Create a table for student attendance
-CREATE TABLE IF NOT EXISTS student_attendance (
-    student_id VARCHAR(50) PRIMARY KEY,
-    attendance VARCHAR(10) NOT NULL,
-    FOREIGN KEY (student_id) REFERENCES students(student_id)
-);
+ALTER TABLE scores
+ADD COLUMN attendance VARCHAR(50) DEFAULT 'absent';
+
+alter table scores
+add column quiz_date varchar(50) not null;
+
 
 select * from students;
 select * from teachers;
 select * from questions;
+select * from scores;
 
-insert into questions values ("3","Subject 2", "trhr?", "5","3","trbg","2","C");
+insert into questions values ("3","Subject 2", "abc?", "5","3","trbg","2","C");
 
-delete from students;
-delete from teachers;
-delete from questions;
+show tables;
