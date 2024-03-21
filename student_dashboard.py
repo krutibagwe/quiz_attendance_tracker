@@ -66,6 +66,15 @@ if __name__ == "__main__":
 import customtkinter as ctk
 from welcome_screen import WelcomeScreen  
 from attempt_quiz import AttemptQuizSubject
+from database_operation import DatabaseOperation
+import matplotlib.pyplot as plt
+import matplotlib.backends.backend_tkagg as tkagg
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import FigureCanvasAgg
+import tkinter.constants as tk_constants
+from tkinter import ttk
+import tkinter as tk
+
 
 # Define the obtain_student_id() function outside the StudentDashboard class
 def obtain_student_id():
@@ -108,10 +117,10 @@ class StudentDashboard(ctk.CTk):
         attempt_quiz_button = ctk.CTkButton(self, text="Attempt Quiz", command=self.attempt_quiz)
         attempt_quiz_button.pack(pady=10)
 
-        view_attendance_button = ctk.CTkButton(self, text="View Attendance & Past Scores", command=self.view_attendance)
+        view_attendance_button = ctk.CTkButton(self, text="View Attendance & Past Scores", command=self.view_details)
         view_attendance_button.pack(pady=10)
 
-        view_progress_button = ctk.CTkButton(self, text="View Progress", command=self.view_progress)
+        view_progress_button = ctk.CTkButton(self, text="View Progress", command=self.view_details)
         view_progress_button.pack(pady=10)
 
         #view_study_material_button = ctk.CTkButton(self, text="View Study Material", command=self.view_study_material)
@@ -129,8 +138,71 @@ class StudentDashboard(ctk.CTk):
     def view_attendance(self):
         print("Opening View Attendance Window")
 
-    def view_progress(self):
-        print("Opening View Progress Window")
+    def view_details(self):
+        db_operation = DatabaseOperation()
+
+        # Fetch data from the database
+        attendance_records = db_operation.get_student_attendance(self.student_id)
+        quiz_scores = db_operation.get_student_scores(self.student_id)
+
+        # Create a new customtkinter window to display the details
+        details_window = ctk.CTk()
+        details_window.title("Student Details")
+
+        window_width = 600
+        window_height = 400
+        details_window.geometry(f"{window_width}x{window_height}")
+
+        screen_width = details_window.winfo_screenwidth()
+        screen_height = details_window.winfo_screenheight()
+        x_position = (screen_width - window_width) // 2
+        y_position = (screen_height - window_height) // 2
+        details_window.geometry(f"+{x_position}+{y_position}")
+
+        # Create a treeview widget
+        tree = ttk.Treeview(details_window, columns=("Date", "Marks", "Attendance"), show="headings")
+        tree.pack(fill="both", expand=True)
+
+        # Set column headings
+        tree.heading("Date", text="Date")
+        tree.heading("Marks", text="Marks")
+        tree.heading("Attendance", text="Attendance")
+
+        style = ttk.Style()
+        style.configure("Treeview", font=("Arial", 50))  # Change the font and size as desired
+
+
+        # Combine the quiz scores and attendance records into a single list
+        all_records = []
+
+        # Iterate over both quiz scores and attendance records simultaneously
+        quiz_iter = iter(quiz_scores)
+        attendance_iter = iter(attendance_records)
+        quiz_record = next(quiz_iter, None)
+        attendance_record = next(attendance_iter, None)
+
+        while quiz_record or attendance_record:
+            # Extract date, marks, and attendance
+            date = None
+            marks = None
+            attendance = None
+
+            if quiz_record:
+                date, marks = quiz_record
+                quiz_record = next(quiz_iter, None)
+
+            if attendance_record:
+                date, attendance = attendance_record
+                attendance_record = next(attendance_iter, None)
+
+            # Insert data into the treeview
+            tree.insert("", "end", values=(date, marks or "", attendance or ""))
+
+        # Add a button to close the window
+        close_button = ctk.CTkButton(details_window, text="Close", command=details_window.withdraw)
+        close_button.pack(pady=10)
+
+        details_window.mainloop()
 
     #def view_study_material(self):
      #   print("Opening View Study Material Window")

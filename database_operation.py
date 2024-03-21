@@ -402,6 +402,88 @@ class DatabaseOperation:
             if connection:
                 connection.close()
 
+
+    def get_student_quiz_data(self, student_id, subject):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            select_query = "SELECT quiz_date, score FROM scores WHERE student_id = %s AND subject = %s"
+            cursor.execute(select_query, (student_id, subject))
+            quiz_data = cursor.fetchall()
+
+            return quiz_data
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+    def get_student_subjects(self, student_id):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            select_query = "SELECT DISTINCT subject FROM scores WHERE student_id = %s"
+            cursor.execute(select_query, (student_id,))
+            subjects = [row[0] for row in cursor.fetchall()]
+
+            return subjects
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+
+    def get_student_attendance(self, student_id):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            select_query = "SELECT quiz_date, attendance FROM scores WHERE student_id = %s"
+            cursor.execute(select_query, (student_id,))
+            attendance_records = cursor.fetchall()
+
+            return attendance_records
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
+    def get_student_scores(self, student_id):
+        try:
+            connection = mysql.connector.connect(**self.db_config)
+            cursor = connection.cursor()
+
+            select_query = "SELECT quiz_date, score FROM scores WHERE student_id = %s"
+            cursor.execute(select_query, (student_id,))
+            quiz_scores = cursor.fetchall()
+
+            return quiz_scores
+
+        except mysql.connector.Error as e:
+            print(f"Error: {e}")
+
+        finally:
+            if cursor:
+                cursor.close()
+            if connection:
+                connection.close()
+
         
             
             
