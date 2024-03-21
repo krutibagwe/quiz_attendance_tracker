@@ -96,9 +96,12 @@ class StudentDashboard(ctk.CTk):
         tree.pack(fill="both", expand=True)
 
         # Set column headings
-        tree.heading("Date", text="Date")
-        tree.heading("Marks", text="Marks")
-        tree.heading("Attendance", text="Attendance")
+        tree.heading("Date", text="Date", anchor = "center")
+        tree.heading("Marks", text="Marks", anchor = "center")
+        tree.heading("Attendance", text="Attendance", anchor = "center")
+
+        for col in tree["columns"]:
+            tree.column(col, anchor="center")
 
         style = ttk.Style()
         style.configure("Treeview", font=("Arial", 50))  # Change the font and size as desired

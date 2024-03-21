@@ -72,11 +72,14 @@ class TeacherDashboard(ctk.CTk):
             tree.pack(fill="both", expand=True)
 
             # Set column headings
-            tree.heading("Student ID", text="Student ID")
-            tree.heading("Subject", text="Subject")
-            tree.heading("Score", text="Score")
-            tree.heading("Date", text="Date")
-            tree.heading("Attendance", text="Attendance")
+            tree.heading("Student ID", text="Student ID", anchor = "center")
+            tree.heading("Subject", text="Subject", anchor = "center")
+            tree.heading("Score", text="Score", anchor = "center")
+            tree.heading("Date", text="Date", anchor = "center")
+            tree.heading("Attendance", text="Attendance", anchor = "center")
+
+            for col in tree["columns"]:
+                tree.column(col, anchor="center")
 
             # Insert data into the treeview
             for idx, record in enumerate(attendance_records, start=1):

@@ -1,4 +1,3 @@
-
 import mysql.connector
 
 class DatabaseOperation:
