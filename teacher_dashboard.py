@@ -30,10 +30,10 @@ class TeacherDashboard(ctk.CTk):
         upload_question_button = ctk.CTkButton(self, text="Upload Question", command=self.upload_question)
         upload_question_button.pack(pady=10)
 
-        view_attendance_button = ctk.CTkButton(self, text="View Attendance", command=self.view_attendance)
+        view_attendance_button = ctk.CTkButton(self, text="Attendance & Scores", command=self.view_attendance)
         view_attendance_button.pack(pady=10)
 
-        view_student_progress_button = ctk.CTkButton(self, text="View Progress", command=self.view_student_progress)
+        view_student_progress_button = ctk.CTkButton(self, text="Student Progress", command=self.view_student_progress)
         view_student_progress_button.pack(pady=10)
 
         logout_button = ctk.CTkButton(self, text="Log Out", command=self.logout)
@@ -57,15 +57,15 @@ class TeacherDashboard(ctk.CTk):
             attendance_window = ctk.CTk()
             attendance_window.title("Attendance Records")
 
-            window_width = 800
-            window_height = 600
+            window_width = 600
+            window_height = 400
+            attendance_window.geometry(f"{window_width}x{window_height}")
+
             screen_width = attendance_window.winfo_screenwidth()
             screen_height = attendance_window.winfo_screenheight()
-
             x_position = (screen_width - window_width) // 2
             y_position = (screen_height - window_height) // 2
-
-            attendance_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
+            attendance_window.geometry(f"+{x_position}+{y_position}")
 
             # Create a treeview widget
             tree = ttk.Treeview(attendance_window, columns=("Student ID", "Subject", "Score","Date", "Attendance"), show="headings")
@@ -77,6 +77,12 @@ class TeacherDashboard(ctk.CTk):
             tree.heading("Score", text="Score", anchor = "center")
             tree.heading("Date", text="Date", anchor = "center")
             tree.heading("Attendance", text="Attendance", anchor = "center")
+
+            tree.column("Student ID", width=100)
+            tree.column("Subject", width=100)
+            tree.column("Score", width=50)
+            tree.column("Date", width=100)
+            tree.column("Attendance", width=100)
 
             for col in tree["columns"]:
                 tree.column(col, anchor="center")
