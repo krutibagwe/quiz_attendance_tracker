@@ -23,11 +23,9 @@ class AddNewTeacher(ctk.CTk):
         back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
         back_button.pack(side="top", anchor="nw", padx=10, pady=10)
 
-        # Add new teacher label
         add_teacher_label = ctk.CTkLabel(self, text="Add New Teacher", font=("Helvetica", 20))
         add_teacher_label.pack(pady=20)
 
-        # Teacher ID and Password entry
         self.teacher_id_label = ctk.CTkLabel(self, text="Teacher ID:")
         self.teacher_id_label.pack()
         self.teacher_id_entry = ctk.CTkEntry(self)
@@ -43,7 +41,6 @@ class AddNewTeacher(ctk.CTk):
         self.password_entry = ctk.CTkEntry(self)
         self.password_entry.pack(pady=10)
 
-        # Create Teacher button
         create_teacher_button = ctk.CTkButton(self, text="Create Teacher", command=self.create_teacher)
         create_teacher_button.pack(pady=20)
 

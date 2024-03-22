@@ -22,11 +22,9 @@ class TeacherDashboard(ctk.CTk):
 
         self.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
-        # Teacher dashboard label
         teacher_dashboard_label = ctk.CTkLabel(self, text="Teacher Dashboard", font=("Helvetica", 20))
         teacher_dashboard_label.pack(pady=20)
 
-        # Buttons
         upload_question_button = ctk.CTkButton(self, text="Upload Question", command=self.upload_question)
         upload_question_button.pack(pady=10)
 
@@ -54,7 +52,6 @@ class TeacherDashboard(ctk.CTk):
         attendance_records = db_operation.get_all_attendance_records()
 
         if attendance_records:
-            # Create a new customtkinter window to display the attendance table
             attendance_window = ctk.CTk()
             attendance_window.title("Attendance Records")
 
@@ -72,7 +69,6 @@ class TeacherDashboard(ctk.CTk):
             tree = ttk.Treeview(attendance_window, columns=("Student ID", "Subject", "Score","Date", "Attendance"), show="headings")
             tree.pack(fill="both", expand=True)
 
-            # Set column headings
             tree.heading("Student ID", text="Student ID", anchor = "center")
             tree.heading("Subject", text="Subject", anchor = "center")
             tree.heading("Score", text="Score", anchor = "center")
@@ -107,12 +103,10 @@ class TeacherDashboard(ctk.CTk):
 
         
 
-
     def view_student_progress(self):
         db_operation = DatabaseOperation()
-        subjects = db_operation.get_all_subjects()  # Get all subjects
+        subjects = db_operation.get_all_subjects()  
 
-        # Create a tkinter window
         root = ctk.CTk()
         root.title("Progress for All Subjects")
 
@@ -125,11 +119,9 @@ class TeacherDashboard(ctk.CTk):
             quiz_data = db_operation.get_all_student_quiz_data(subject)
             
             if quiz_data:
-                # Extract student IDs and corresponding marks
                 student_ids = [data[0] for data in quiz_data]
                 marks = [data[1] for data in quiz_data]
-                
-                # Create a subplot for the subject
+
                 fig, ax = plt.subplots(figsize=(5, 5))
                 ax.scatter(student_ids, marks, marker='o', linestyle='-')
                 ax.set_title(f'Progress in {subject}')
@@ -137,21 +129,17 @@ class TeacherDashboard(ctk.CTk):
                 ax.set_ylabel('Marks Obtained')
                 ax.grid(True)
 
-                # Embed the plot into a tkinter window
                 canvas = tkagg.FigureCanvasTkAgg(fig, master=root)
                 canvas.draw()
-                
-                # Calculate grid coordinates for the current subplot
+
                 row = i // cols
                 col = i % cols
-                
-                # Pack the canvas into the appropriate grid cell
+
                 canvas.get_tk_widget().grid(row=row, column=col, padx=10, pady=10)
                 
             else:
                 print(f"No quiz data found for {subject}")
 
-        # Add a button to close the window
         close_button = ctk.CTkButton(root, text="Close", command=root.withdraw)
         close_button.grid(row=rows, column=0, columnspan=cols, pady=10)
 

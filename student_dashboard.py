@@ -10,19 +10,18 @@ import tkinter.constants as tk_constants
 from tkinter import ttk
 import tkinter as tk
 
-# Define the obtain_student_id() function outside the StudentDashboard class
+
 def obtain_student_id():
-    from student_login import StudentLogin  # Import the StudentLogin class
-    # Create an instance of the StudentLogin class
+    from student_login import StudentLogin 
+
     login_screen = StudentLogin()
 
-    # Start the login screen's main loop
     login_screen.mainloop()
 
-    # After the main loop finishes (e.g., after successful login), retrieve the student ID
+    #  retrieve the student ID
     student_id = login_screen.student_id_var.get()
     print("Student ID Received : ", student_id)
-    # Return the obtained student ID
+
     return student_id
     
 
@@ -46,7 +45,6 @@ class StudentDashboard(ctk.CTk):
         # Student dashboard label
         student_dashboard_label = ctk.CTkLabel(self, text="Student Dashboard", font=("Helvetica", 20))
         student_dashboard_label.pack(pady=20)
-
 
         # Buttons
         attempt_quiz_button = ctk.CTkButton(self, text="Attempt Quiz", command=self.attempt_quiz)
@@ -74,11 +72,9 @@ class StudentDashboard(ctk.CTk):
         self.withdraw()
         db_operation = DatabaseOperation()
 
-        # Fetch data from the database
         attendance_records = db_operation.get_student_attendance(self.student_id)
         quiz_scores = db_operation.get_student_scores(self.student_id)
 
-        # Create a new customtkinter window to display the details
         details_window = ctk.CTk()
         details_window.title("Student Details")
 
@@ -96,7 +92,6 @@ class StudentDashboard(ctk.CTk):
         tree = ttk.Treeview(details_window, columns=("Date", "Marks", "Attendance"), show="headings")
         tree.pack(fill="both", expand=True)
 
-        # Set column headings
         tree.heading("Date", text="Date", anchor = "center")
         tree.heading("Marks", text="Marks", anchor = "center")
         tree.heading("Attendance", text="Attendance", anchor = "center")
@@ -105,7 +100,7 @@ class StudentDashboard(ctk.CTk):
             tree.column(col, anchor="center")
 
         style = ttk.Style()
-        style.configure("Treeview", font=("Arial", 50))  # Change the font and size as desired
+        style.configure("Treeview", font=("Arial", 50))  
 
 
         # Combine the quiz scores and attendance records into a single list
@@ -131,11 +126,7 @@ class StudentDashboard(ctk.CTk):
                 date, attendance = attendance_record
                 attendance_record = next(attendance_iter, None)
 
-            # Insert data into the treeview
-            tree.insert("", "end", values=(date, marks or "", attendance or ""))
-
-        # Add a button to close the window
-       
+            tree.insert("", "end", values=(date, marks or "", attendance or ""))      
 
         def close_window():
                 details_window.withdraw()
@@ -152,11 +143,8 @@ class StudentDashboard(ctk.CTk):
         db_operation = DatabaseOperation()
         subjects = db_operation.get_student_subjects(self.student_id)
 
-        # Create a tkinter window
         root = ctk.CTk()
         root.title("Progress for All Subjects")
-
-        
 
         # Define grid layout parameters
         rows = 2
@@ -181,17 +169,14 @@ class StudentDashboard(ctk.CTk):
                 canvas = tkagg.FigureCanvasTkAgg(fig, master=root)
                 canvas.draw()
                 
-                # Calculate grid coordinates for the current subplot
                 row = i // cols
                 col = i % cols
                 
-                # Pack the canvas into the appropriate grid cell
                 canvas.get_tk_widget().grid(row=row, column=col, padx=10, pady=10)
                 
             else:
                 print(f"No quiz data found for {subject}")
 
-        # Add a button to close the window
         close_button = ctk.CTkButton(root, text="Close", command=root.withdraw)
         close_button.grid(row=rows, column=0, columnspan=cols, pady=10)
 
@@ -205,7 +190,7 @@ class StudentDashboard(ctk.CTk):
         welcome_screen.mainloop()
 
 if __name__ == "__main__":
-    from student_login import StudentLogin  # Import the StudentLogin class
+    from student_login import StudentLogin  
     student_id = obtain_student_id()
     app = StudentDashboard(student_id)
     app.mainloop()

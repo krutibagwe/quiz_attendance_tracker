@@ -24,8 +24,6 @@ class TeacherLogin(ctk.CTk):
         back_button = ctk.CTkButton(self, text="\u2190", command=self.go_back, width=30, height=30)
         back_button.pack(side="top", anchor="nw", padx=10, pady=10)
 
-
-        # Teacher Login label
         teacher_login_label = ctk.CTkLabel(self, text="Teacher Login", font=("Helvetica", 20))
         teacher_login_label.pack(pady=20)
 
@@ -43,7 +41,6 @@ class TeacherLogin(ctk.CTk):
         self.password_entry = ctk.CTkEntry(self, show="*") 
         self.password_entry.pack(pady=10)
 
-        # Login button
         login_button = ctk.CTkButton(self, text="Login", command=self.login)
         login_button.pack(pady=20)
 

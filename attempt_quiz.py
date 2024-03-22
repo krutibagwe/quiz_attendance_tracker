@@ -9,18 +9,17 @@ import tkinter.messagebox as tkmb
 
 def obtain_student_id():
     from student_login import StudentLogin
-    # Create an instance of the StudentLogin class
     login_screen = StudentLogin()
 
-    # Start the login screen's main loop
     login_screen.mainloop()
 
-    # After the main loop finishes (e.g., after successful login), retrieve the student ID
+    #retrieve the student ID
     student_id = login_screen.student_id_var.get()
     print("Student ID :" , student_id)
 
     # Return the obtained student ID
     return student_id
+
 class AttemptQuizSubject(ctk.CTk):
     def __init__(self, student_id):
         super().__init__()
@@ -32,7 +31,7 @@ class AttemptQuizSubject(ctk.CTk):
         self.title("Attempt Quiz - Select Subject")
 
         window_width = 700
-        window_height = 600
+        window_height = 565
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
 
@@ -63,32 +62,29 @@ class AttemptQuizSubject(ctk.CTk):
 
 
         instructions_label = ctk.CTkLabel(self, text="Read the instructions below before starting the quiz:", font=("Helvetica", 15))
-        instructions_label.pack(pady=10)
+        instructions_label.pack(pady=5)
 
         instructions_text = """
-        1. This quiz consists of multiple-choice questions.
+        1. This quiz consists of 10 multiple-choice questions.
         2. Select the correct answer for each question.
         3. You cannot go back to previous questions, so answer carefully.
+        4. You must attempt all questions.
+        5. Attendance will be marked as present if score is 6 or more.
         4. Click the 'Start Quiz' button when you are ready.
         """
 
         instructions_text_label = ctk.CTkLabel(self, text=instructions_text, font=("Helvetica", 15), justify=ctk.LEFT, wraplength=500)
-        instructions_text_label.pack(pady=20)
+        instructions_text_label.pack(pady=30)
 
         start_quiz_button = ctk.CTkButton(self, text="Start Quiz", command=self.start_quiz)
         start_quiz_button.pack(pady=20)
 
     def start_quiz(self):
-        # Get the selected subject
         selected_subject = self.subject_var.get()
 
-        # Retrieve questions for the selected subject
         questions = DatabaseOperation().get_quiz_questions(selected_subject)
-          
-        # Debug print
         print("Questions:", questions)
 
-        # Get the entered date
         quiz_date = self.date_entry.get()
 
         if DatabaseOperation().check_quiz_attempt(self.student_id, selected_subject, quiz_date):
@@ -101,24 +97,20 @@ class AttemptQuizSubject(ctk.CTk):
         
            
         else:
-            # Debug print
             print(f"Student ID before starting quiz: {self.student_id}")
 
 
 
-        # Debug print
             print(f"Student ID before starting quiz: {self.student_id}")
             
-            # Close the subject selection window
             self.withdraw()
             
-            # Open the quiz window for the selected subject and pass the student ID
             quiz_window = QuizWindow(self.student_id, selected_subject, questions, quiz_date)
             quiz_window.mainloop()
 
     def go_back(self):
-        from student_dashboard import StudentDashboard  # Import StudentDashboard class
-        student_dashboard = StudentDashboard(self.student_id)  # Pass the student ID back to the StudentDashboard
+        from student_dashboard import StudentDashboard  
+        student_dashboard = StudentDashboard(self.student_id)  
         self.withdraw()
         student_dashboard.mainloop()
 
@@ -186,7 +178,6 @@ class QuizWindow(ctk.CTk):
         for widget in self.winfo_children():
             widget.destroy()
         
-        # Display the score
         score_frame = ctk.CTkFrame(self)
         score_frame.pack(expand=True)
 
@@ -195,15 +186,12 @@ class QuizWindow(ctk.CTk):
         score_label = ctk.CTkLabel(score_frame, text=score_text, font=("Helvetica", 14))
         score_label.pack(pady=10)
 
-        # Store the score in the database
         database = DatabaseOperation()
         database.add_score(self.student_id, self.selected_subject, self.correct_answers, self.quiz_date)
 
-        # Create a frame for the back button
         back_button_frame = ctk.CTkFrame(self)
         back_button_frame.pack(side="top", anchor="nw", padx=10, pady=10)
 
-        # Show the back button
         back_button = ctk.CTkButton(back_button_frame, text="\u2190", command=self.go_back, width=30, height=30)
         back_button.pack(side="left")
 
@@ -217,25 +205,18 @@ class QuizWindow(ctk.CTk):
         student_dashboard.mainloop()
 
     def display_pie_chart(self):
-        # Retrieve additional statistics from the database if needed
-        # For example:
-        # correct_count, incorrect_count = DatabaseOperation().get_student_subject_stats(self.student_id, self.selected_subject)
-
-        # Example data
         correct_count = self.correct_answers
         incorrect_count = len(self.questions) - self.correct_answers
 
-        # Create a new figure
         fig, ax = plt.subplots(figsize=(4, 4))
         ax.pie([correct_count, incorrect_count], labels=["Correct", "Incorrect"], autopct='%1.1f%%', startangle=140)
         ax.set_title(f'Quiz Performance for {self.selected_subject}')
 
-        # Embed the figure in a Tkinter canvas
         canvas = tkagg.FigureCanvasTkAgg(fig, master=self)
         canvas.draw()
         canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
 
 if __name__ == "__main__":
-    student_id = obtain_student_id()  # Replace this with the actual student ID
+    student_id = obtain_student_id()  
     app = AttemptQuizSubject(student_id)
     app.mainloop()
