@@ -55,7 +55,7 @@ class AttemptQuizSubject(ctk.CTk):
         subject_dropdown = ctk.CTkOptionMenu(self, values=subjects, command=subject_dropdown_callback, variable=self.subject_var)
         subject_dropdown.pack(pady=10)
 
-        self.date_label = ctk.CTkLabel(self, text="Enter Date:", font=("Helvetica", 12))
+        self.date_label = ctk.CTkLabel(self, text="Enter Date: (DD/MM/YY)", font=("Helvetica", 12))
         self.date_label.pack(pady=10)
         self.date_entry = ctk.CTkEntry(self)
         self.date_entry.pack(pady=5)
