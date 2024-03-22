@@ -71,6 +71,7 @@ class StudentDashboard(ctk.CTk):
         print("Opening Attempt Quiz Window")
 
     def view_details(self):
+        self.withdraw()
         db_operation = DatabaseOperation()
 
         # Fetch data from the database
@@ -134,7 +135,15 @@ class StudentDashboard(ctk.CTk):
             tree.insert("", "end", values=(date, marks or "", attendance or ""))
 
         # Add a button to close the window
-        close_button = ctk.CTkButton(details_window, text="Close", command=details_window.withdraw)
+       
+
+        def close_window():
+                details_window.withdraw()
+                from teacher_dashboard import TeacherDashboard
+                teacher_dashboard = TeacherDashboard()
+                teacher_dashboard.mainloop()
+           
+        close_button = ctk.CTkButton(details_window, text="Close", command=close_window)
         close_button.pack(pady=10)
 
         details_window.mainloop()

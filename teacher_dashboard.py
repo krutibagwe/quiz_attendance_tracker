@@ -47,6 +47,7 @@ class TeacherDashboard(ctk.CTk):
 
 
     def view_attendance(self):
+        self.withdraw()
         db_operation = DatabaseOperation()
 
         # Fetch attendance records from the database
@@ -91,7 +92,13 @@ class TeacherDashboard(ctk.CTk):
             for idx, record in enumerate(attendance_records, start=1):
                 tree.insert("", "end", values=(record[0], record[1], record[2], record[3], record[4]))
             
-            close_button = ctk.CTkButton(attendance_window, text="Close", command=attendance_window.withdraw)
+            def close_window():
+                attendance_window.withdraw()
+                from teacher_dashboard import TeacherDashboard
+                teacher_dashboard = TeacherDashboard()
+                teacher_dashboard.mainloop()
+           
+            close_button = ctk.CTkButton(attendance_window, text="Close", command=close_window)
             close_button.pack(pady=10)
 
             attendance_window.mainloop()
