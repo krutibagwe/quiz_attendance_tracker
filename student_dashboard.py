@@ -128,11 +128,22 @@ class StudentDashboard(ctk.CTk):
 
             tree.insert("", "end", values=(date, marks or "", attendance or ""))      
 
-        def close_window():
+        '''def close_window():
                 details_window.withdraw()
                 from teacher_dashboard import TeacherDashboard
                 teacher_dashboard = TeacherDashboard()
                 teacher_dashboard.mainloop()
+           
+        close_button = ctk.CTkButton(details_window, text="Close", command=close_window)
+        close_button.pack(pady=10)
+
+        details_window.mainloop()'''
+
+        def close_window():
+                details_window.withdraw()
+                from student_dashboard import StudentDashboard
+                student_dashboard = StudentDashboard(self.student_id)
+                student_dashboard.mainloop()
            
         close_button = ctk.CTkButton(details_window, text="Close", command=close_window)
         close_button.pack(pady=10)
