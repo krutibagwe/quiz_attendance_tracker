@@ -12,6 +12,8 @@ In the dynamic landscape of educational technology, quiz applications have becom
 
 - **User Management:** Administrators can manage user accounts, while teachers have control over quiz creation, score monitoring, and attendance tracking.
 
+- **Quiz Creation:** Teachers have the capability to create quizzes tailored to their subjects or topics.
+
 - **Interactive Learning:** Students can access subject-wise quizzes, review past performance, and monitor their attendance status.
 
 - **Progress Visualization:** The application offers graphical representations of students' subject-wise progress, enabling educators to assess performance effectively.
